@@ -5,6 +5,10 @@ A GameMaker Studio 2 Plugin for the Newgrounds.io API.
 Open your GameMaker project and go to Tools > Import Local Package.
 Select the downloaded .yymps file, Import All, then Import.
 
+# So how do I get my game to properly connect now?
+At the very start of your game call ng_connect with the proper information. Right after, call ng_initalize_medals_and_scoreboard.
+Afterwards, you'll wanna decide on when you want your player to be connected (or prompted to log in or register if they're not actually logged in). Do you want a Log In/Log Out button in your game? Do you want the connect attempt to happen right after the API connection? But after that, everything else is pretty much straightforward and dependent on your game.
+
 # Supported API Functions
 To get the most out of this plugin, please refer to the Newgrounds.io API documentation for more information on what some functions do.
 
