@@ -216,33 +216,70 @@ function ng_unlockmedal(medal_name) {
 
         var medal = medals[i];
 
-        /* look for a matching medal name */
-        if (medal.name == medal_name) {
+		/* if medal_name is a medal name */
+		if (typeof medal_name === 'string'){
 
-    		// Unlock and display if it's not unlocked yet
-    		if(!medal.unlocked){
-    			to_unlock.push(medal);
-        		console.log("LengthCXY: ", to_unlock.length);
-				setTimeout(function(){ 
-					_showMedal(medal);
-					_loadMedals();
-					to_unlock.pop(); 
-							/* unlock the medal from the server */
-			                ngio.callComponent('Medal.unlock', {id:medal.id}, function(result) {
+			/* look for a matching medal name */
+			if (medal.name == medal_name) {
 
-			               		console.log("Successfully unlocked: ", medal.name);
-			                    	
-		               		});   
-					}, 
+				// Unlock and display if it's not unlocked yet
+				if(!medal.unlocked){
+					to_unlock.push(medal);
+					console.log("LengthCXY: ", to_unlock.length);
+					setTimeout(function(){ 
+						_showMedal(medal);
+						_loadMedals();
+						to_unlock.pop(); 
+								/* unlock the medal from the server */
+								ngio.callComponent('Medal.unlock', {id:medal.id}, function(result) {
 
-					2500 * (to_unlock.length - 1));	
-        	}
-  
-            // I use this return value inside gamemaker to play the audio effect at the right time
-            var sfxTimeout = 2500 * (to_unlock.length - 1);
-            if(medal.unlocked) sfxTimeout = -1;
-            return sfxTimeout;      	
-        }
+									console.log("Successfully unlocked: ", medal.name);
+										
+								});   
+						}, 
+
+						2500 * (to_unlock.length - 1));	
+				}
+
+				// I use this return value inside gamemaker to play the audio effect at the right time
+				var sfxTimeout = 2500 * (to_unlock.length - 1);
+				if(medal.unlocked) sfxTimeout = -1;
+				return sfxTimeout;      	
+			}
+		}
+
+
+		/* if value of medal_name is a medal id */
+		if (typeof medal_name === 'number'){
+
+			/* look for a matching medal id */
+			if (medal.id == medal_name) {
+
+				// Unlock and display if it's not unlocked yet
+				if(!medal.unlocked){
+					to_unlock.push(medal);
+					console.log("LengthCXY: ", to_unlock.length);
+					setTimeout(function(){ 
+						_showMedal(medal);
+						_loadMedals();
+						to_unlock.pop(); 
+								/* unlock the medal from the server */
+								ngio.callComponent('Medal.unlock', {id:medal.id}, function(result) {
+
+									console.log("Successfully unlocked: ", medal.name);
+										
+								});   
+						}, 
+
+						2500 * (to_unlock.length - 1));	
+				}
+
+				// I use this return value inside gamemaker to play the audio effect at the right time
+				var sfxTimeout = 2500 * (to_unlock.length - 1);
+				if(medal.unlocked) sfxTimeout = -1;
+				return sfxTimeout;      	
+			}
+		}
 	}
   }
 
