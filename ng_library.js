@@ -249,7 +249,7 @@ function ng_unlockmedal(medal_name) {
 		}
 
 
-		/* if value of medal_name is a medal id */
+		/* if medal_name is a medal id */
 		if (typeof medal_name === 'number'){
 
 			/* look for a matching medal id */
