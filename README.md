@@ -1,13 +1,13 @@
 # Newgrounds.io GameMaker Studio 2 API
 A GameMaker Studio 2 Plugin for the Newgrounds.io API.
 
-#EXAMPLE GAMES
-**[PISTOL FOR PRESIDENT](https://www.newgrounds.com/portal/view/818229)
+# EXAMPLE GAMES
 
-[PENGU SAVES CHRISTMAS](https://www.newgrounds.com/portal/view/825562)
+**[PISTOL FOR PRESIDENT](https://www.newgrounds.com/portal/view/818229)**
 
-[SHRIMP-OS]
-(https://www.newgrounds.com/portal/view/846386)**
+**[PENGU SAVES CHRISTMAS](https://www.newgrounds.com/portal/view/825562)**
+
+**[SHRIMP-OS](https://www.newgrounds.com/portal/view/846386)**
 
 # How to Import Plugin
 Open your GameMaker project and go to Tools > Import Local Package.
