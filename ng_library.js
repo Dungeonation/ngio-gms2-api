@@ -217,22 +217,17 @@ function ng_unlockmedal(medal_name) {
         var medal = medals[i];
 
         /* look for a matching medal name */
-        if (medal.name == medal_name) {
+        if (medal.name == medal_name || medal.id == medal_name) {
 
     		// Unlock and display if it's not unlocked yet
     		if(!medal.unlocked){
     			to_unlock.push(medal);
-        		console.log("LengthCXY: ", to_unlock.length);
 				setTimeout(function(){ 
 					_showMedal(medal);
 					_loadMedals();
 					to_unlock.pop(); 
 							/* unlock the medal from the server */
-			                ngio.callComponent('Medal.unlock', {id:medal.id}, function(result) {
-
-			               		console.log("Successfully unlocked: ", medal.name);
-			                    	
-		               		});   
+			                ngio.callComponent('Medal.unlock', {id:medal.id});   
 					}, 
 
 					2500 * (to_unlock.length - 1));	
@@ -254,11 +249,22 @@ function ng_unlockmedal(medal_name) {
 	    for (var i = 0; i < scoreboards.length; i++) {
 
 	        scoreboard = scoreboards[i];
-	        if(board_id == scoreboard.id)
+	        if(board_id == scoreboard.id || board_id == scoreboard.name){
 	        	ngio.callComponent('ScoreBoard.postScore', {id:scoreboard.id, value:score_value});	        
 	    }
 	}
 
+function ng_getScores(board_app_id,board_id,board_limit,board_period,board_skip,board_social,board_tag,user_id_or_name){
+if (!ngio.user) return "";
+
+	    for (var i = 0; i < scoreboards.length; i++) {
+
+	        scoreboard = scoreboards[i];
+	        if(board_id == scoreboard.id || board_id == scoreboard.name){
+	        	thescoreboard = ngio.callComponent('ScoreBoard.getScores', {app_id:board_app_id, id:scoreboard.id, limit:board_limit, period:board_period, skip:board_skip, social:board_social, tag:board_tag, user:user_id_or_name});	        
+				return thescoreboard;
+		}
+}
 	function ng_check_supporter() {
 		if (!ngio.user){
 			return "false";
@@ -326,4 +332,54 @@ function ng_loadMoreGames(host_url){
 }
 function ng_loadOfficialUrl(host_url){
 	ngio.callComponent('Loader.loadOfficialUrl', {host:host_url});
+}
+
+// Cloud save functions begin down here :)
+// Credit to Jack on Newgrounds for doin' all this stuff! <3
+
+var slots;
+
+var slotLoadStatus = -1;
+
+function ng_loadSlots() {
+	ngio.callComponent('CloudSave.loadSlots', {}, onSlotsLoaded);
+	if (slotLoadStatus == -1) slotLoadStatus = 0;
+}
+
+function ng_getSlotLoadStatus() {
+	return slotLoadStatus;
+}
+
+function onSlotsLoaded(result) {
+	if (result.success) {
+		slots = result.slots;
+		slotLoadStatus = 1;
+		console.log("Successfully loaded save slots!");
+	} else {
+		console.log("LOADING ERROR: ", result.error.message);
+		slotLoadStatus = -1;
+    }
+}
+
+function ng_loadSlot(slot_id) {
+	for (var i = 0; i < slots.length; i++) {
+		slot = slots[i];
+		if (slot.id == slot_id) {
+			if (slot.url != null) {
+				return slot.url;
+			} else {
+				return "";
+            }
+        }
+	}
+}
+
+function ng_setData(save_data, slot_id) {
+	ngio.callComponent('CloudSave.setData', { data: save_data, id: slot_id }, function (result) {
+		if (result.success) {
+			console.log(result);
+		} else {
+			console.log(result.error.message);
+		}
+	});
 }

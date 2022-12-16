@@ -1,7 +1,13 @@
 # Newgrounds.io GameMaker Studio 2 API
 A GameMaker Studio 2 Plugin for the Newgrounds.io API.
 
-**[EXAMPLE GAME: PISTOL FOR PRESIDENT](https://www.newgrounds.com/portal/view/818229)**
+#EXAMPLE GAMES
+**[PISTOL FOR PRESIDENT](https://www.newgrounds.com/portal/view/818229)
+
+[PENGU SAVES CHRISTMAS](https://www.newgrounds.com/portal/view/825562)
+
+[SHRIMP-OS]
+(https://www.newgrounds.com/portal/view/846386)**
 
 # How to Import Plugin
 Open your GameMaker project and go to Tools > Import Local Package.
@@ -20,6 +26,7 @@ To get the most out of this plugin, please refer to the [Newgrounds.io API docum
 * ng_cancel_login
 * ng_logOut
 * ng_unlockmedal
+* ng_getScores
 * ng_postScore
 * ng_get_username
 * ng_check_supporter
@@ -33,3 +40,8 @@ To get the most out of this plugin, please refer to the [Newgrounds.io API docum
 * ng_logView
 * ng_loadMoreGames
 * ng_loadOfficialUrl
+* ng_loadSlots
+* ng_loadSlot
+* ng_setData
+* ng_getSlotLoadStatus *(-1=not loaded, 0=loading, 1=loaded)*
+

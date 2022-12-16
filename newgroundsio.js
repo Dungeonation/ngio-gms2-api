@@ -44,7 +44,7 @@ Newgrounds.io = {
 	/**
 	 * @property {string} GATEWAY_URI - The script all commands get posted to
 	 */
-	GATEWAY_URI: '//newgrounds.io/gateway_v3.php'
+	GATEWAY_URI: 'https://newgrounds.io/gateway_v3.php'
 };
 
 /**
@@ -1810,7 +1810,115 @@ Newgrounds.io.model.result.prototype.fromObject = function(object) {
 };
 
 
-Newgrounds.io.model.result.prototype.constructor = Newgrounds.io.model.result;/**
+Newgrounds.io.model.result.prototype.constructor = Newgrounds.io.model.result;
+
+
+/**
+ * Contains information about a CloudSave slot. 
+ * @name Newgrounds.io.model.saveslot 
+ * @constructor
+ * @memberof Newgrounds.io.model
+ * @property {string} datetime - A date and time (in ISO 8601 format) representing when this slot was last saved.
+ * @property {number} id - The slot number.
+ * @property {number} size - The size of the save data in bytes.
+ * @property {number} timestamp - A unix timestamp representing when this slot was last saved.
+ * @property {string} url - The URL containing the actual save data for this slot, or null if this slot has no data. 
+ * @param {Newgrounds.io.core} [ngio] - A Newgrounds.io.core instance associated with the model object.
+ * @param {object} [from_object] - A literal object used to populate this model's properties.
+ */
+Newgrounds.io.model.saveslot = function(ngio, from_object) {
+
+	/* private vars */
+	var _datetime, _id, _size, _timestamp, _url;
+	this.__property_names = ["datetime","id","size","timestamp","url"];
+	this.__classname = "Newgrounds.io.model.saveslot";
+	this.__ngio = ngio;
+	
+	var _datetime;
+	Object.defineProperty(this, 'datetime', {
+		get: function() { return typeof(_datetime) == 'undefined' ? null : _datetime; },
+		set: function(__vv__) {
+			Newgrounds.io.model.checkStrictValue(this.__classname, 'datetime', __vv__, String, null, null, null); 
+			_datetime = __vv__;
+		}
+	});
+
+	var _id;
+	Object.defineProperty(this, 'id', {
+		get: function() { return typeof(_id) == 'undefined' ? null : _id; },
+		set: function(__vv__) {
+			Newgrounds.io.model.checkStrictValue(this.__classname, 'id', __vv__, Number, null, null, null); 
+			_id = __vv__;
+		}
+	});
+
+	var _size;
+	Object.defineProperty(this, 'size', {
+		get: function() { return typeof(_size) == 'undefined' ? null : _size; },
+		set: function(__vv__) {
+			Newgrounds.io.model.checkStrictValue(this.__classname, 'size', __vv__, Number, null, null, null); 
+			_size = __vv__;
+		}
+	});
+
+	var _timestamp;
+	Object.defineProperty(this, 'timestamp', {
+		get: function() { return typeof(_timestamp) == 'undefined' ? null : _timestamp; },
+		set: function(__vv__) {
+			Newgrounds.io.model.checkStrictValue(this.__classname, 'timestamp', __vv__, Number, null, null, null); 
+			_timestamp = __vv__;
+		}
+	});
+
+	var _url;
+	Object.defineProperty(this, 'url', {
+		get: function() { return typeof(_url) == 'undefined' ? null : _url; },
+		set: function(__vv__) {
+			Newgrounds.io.model.checkStrictValue(this.__classname, 'url', __vv__, String, null, null, null); 
+			_url = __vv__;
+		}
+	});
+
+	if(from_object) this.fromObject(from_object);
+};
+
+Newgrounds.io.model.saveslot.prototype._has_ngio_user = function() {
+	return (this.__ngio && this.__ngio.user);
+}
+
+/**
+ * Converts the model instance to a literal object.
+ * @instance
+ * @memberof Newgrounds.io.model.saveslot 
+ * @function toObject
+ * @return {object}
+ */
+Newgrounds.io.model.saveslot.prototype.toObject = function() {
+	var object = {};
+	for(var i=0; i<this.__property_names.length; i++) {
+		if (typeof(this[this.__property_names[i]]) != 'undefined') object[this.__property_names[i]] = this[this.__property_names[i]];
+	}
+	return object;
+};
+
+/**
+ * Populates the model instance using a literal object.
+ * @instance
+ * @memberof Newgrounds.io.model.saveslot 
+ * @function fromObject
+ * @param {object} object - An object containing property/value pairs
+ */
+Newgrounds.io.model.saveslot.prototype.fromObject = function(object) {
+	var property, model;
+	for(var i=0; i<this.__property_names.length; i++) {
+		property = object[this.__property_names[i]]; 
+		this[this.__property_names[i]] = property;
+	}
+};
+
+
+Newgrounds.io.model.saveslot.prototype.constructor = Newgrounds.io.model.saveslot;
+/**
  * Contains information about a score posted to a scoreboard. 
  * @name Newgrounds.io.model.score 
  * @constructor
@@ -2343,6 +2451,34 @@ Newgrounds.io.call_validators.App = {
 	 * @property {object} startSession - Contains rules for validating calls to 'App.startSession'.
 	 */
 	startSession: {"require_session":false,"secure":false,"redirect":false,"import":false,"params":{"force":{"type":Boolean,"extract_from":null,"required":null,"description":"If true, will create a new session even if the user already has an existing one.\n\nNote: Any previous session ids will no longer be valid if this is used."}},"returns":{"session":{"object":"session","description":null}}} 
+
+};
+/**
+ * Contains validation rules for calls within the 'CloudSave' component.
+ * @memberof Newgrounds.io.call_validators
+ * @type {object}
+ */
+Newgrounds.io.call_validators.CloudSave = { 
+
+	/**
+	 * @property {object} clearSlot - Contains rules for validating calls to 'CloudSave.clearSlot'.
+	 */
+	clearSlot: {"require_session":true,"secure":false,"redirect":false,"import":false,"params":{"id":{"type":Number,"extract_from":null,"required":true,"description":"The slot number."}},"returns":{"slot":{"object":"saveslot","description":"A #saveslot object."}}}, 
+
+	/**
+	 * @property {object} loadSlot - Contains rules for validating calls to 'CloudSave.loadSlot'.
+	 */
+	loadSlot: {"require_session":true,"secure":false,"redirect":false,"import":false,"params":{"id":{"type":Number,"extract_from":null,"required":true,"description":"The slot number."}},"returns":{"slot":{"object":"saveslot","description":"A #saveslot object."}}}, 
+
+	/**
+	 * @property {object} loadSlots - Contains rules for validating calls to 'CloudSave.loadSlots'.
+	 */
+	loadSlots: {"require_session":true,"secure":false,"redirect":false,"import":false,"params":{},"returns":{"slots":{"array":{"object":"saveslot"},"description":"An array of #saveslot objects."}}}, 
+
+	/**
+	 * @property {object} setData - Contains rules for validating calls to 'CloudSave.setData'.
+	 */
+	setData: {"require_session":true,"secure":false,"redirect":false,"import":false,"params":{"data":{"type":String,"extract_from":null,"required":true,"description":"The data you want to save."},"id":{"type":Number,"extract_from":null,"required":true,"description":"The slot number."}},"returns":{"slot":{"object":"saveslot","description":null}}} 
 
 };
 /**
