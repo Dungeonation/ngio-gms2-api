@@ -241,30 +241,31 @@ function ng_unlockmedal(medal_name) {
 	}
   }
 
-	function ng_postScore(board_id, score_value) {
-		if (!ngio.user) return;
+function ng_postScore(board_id, score_value) {
+	if (!ngio.user) return;
 
-	    var score;
+	var score;
 
-	    for (var i = 0; i < scoreboards.length; i++) {
-
-	        scoreboard = scoreboards[i];
-	        if(board_id == scoreboard.id || board_id == scoreboard.name){
-	        	ngio.callComponent('ScoreBoard.postScore', {id:scoreboard.id, value:score_value});	        
+	for (var i = 0; i < scoreboards.length; i++) {
+		scoreboard = scoreboards[i];
+		if(board_id == scoreboard.id || board_id == scoreboard.name){
+			ngio.callComponent('ScoreBoard.postScore', {id:scoreboard.id, value:score_value});	        
 	    }
 	}
-
-function ng_getScores(board_app_id,board_id,board_limit,board_period,board_skip,board_social,board_tag,user_id_or_name){
-if (!ngio.user) return "";
-
-	    for (var i = 0; i < scoreboards.length; i++) {
-
-	        scoreboard = scoreboards[i];
-	        if(board_id == scoreboard.id || board_id == scoreboard.name){
-	        	thescoreboard = ngio.callComponent('ScoreBoard.getScores', {app_id:board_app_id, id:scoreboard.id, limit:board_limit, period:board_period, skip:board_skip, social:board_social, tag:board_tag, user:user_id_or_name});	        
-				return thescoreboard;
-		}
 }
+
+function ng_getScores(board_app_id,board_id,board_limit,board_period,board_skip,board_social,board_tag,user_id_or_name) {
+	if (!ngio.user) return "";
+
+	for (var i = 0; i < scoreboards.length; i++) {
+		scoreboard = scoreboards[i];
+		if(board_id == scoreboard.id || board_id == scoreboard.name) {
+			thescoreboard = ngio.callComponent('ScoreBoard.getScores', {app_id:board_app_id, id:scoreboard.id, limit:board_limit, period:board_period, skip:board_skip, social:board_social, tag:board_tag, user:user_id_or_name});	        
+			return thescoreboard;
+		}
+	}
+}
+
 	function ng_check_supporter() {
 		if (!ngio.user){
 			return "false";
