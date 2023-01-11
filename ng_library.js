@@ -182,7 +182,7 @@ var _createMedalUI = function () {
 				" </div>"+
 			"</div>"+
 		"</div>"+
-	"</div>"
+	"</div>";
 };
 
 
